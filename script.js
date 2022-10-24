@@ -8,7 +8,6 @@ function createTitle() {
   title.innerText = 'Paleta de Cores';
   title.id = 'title';
   header.appendChild(title);
-  
 }
 
 function receiveClick(color) {
