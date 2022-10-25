@@ -1,6 +1,3 @@
-const colorPalette = document.getElementsByClassName('color');
-const pixel = document.getElementsByClassName('pixel');
-const clear = document.getElementById('clear-board');
 const colors = ['black', 'red', 'blue', 'green'];
 
 function createTitle() {
@@ -27,13 +24,29 @@ function createPaletteColor(arrColors) {
 function createPixels() {
   const pixelsContainer = document.getElementById('pixel-board');
   for (let index = 0; index < 25; index += 1) {
-    const pixell = document.createElement('div');
-    pixell.className = 'pixel';
-    pixelsContainer.appendChild(pixell);
+    const pixel = document.createElement('div');
+    pixel.className = 'pixel';
+    pixelsContainer.appendChild(pixel);
   }
 }
 
+function createInputEButton() {
+  const inputContainer = document.getElementById('input-container');
+  const input = document.createElement('input');
+  input.placeholder = 'Digite o tamanho os pixels';
+  input.id = 'board-size';
+  input.type = 'number';
+  input.min = '0';
+  input.max = '50';
+  const button = document.createElement('button');
+  button.innerText = 'VQV';
+  button.id = 'generate-board';
+  inputContainer.appendChild(input);
+  inputContainer.appendChild(button);
+}
+
 function setSelected(event) {
+  const colorPalette = document.getElementsByClassName('color');
   for (let i = 0; i < colorPalette.length; i += 1) {
     if (colorPalette[i].classList.contains('selected')) {
       colorPalette[i].classList.toggle('selected');
@@ -43,12 +56,14 @@ function setSelected(event) {
 }
 
 function receiveClick() {
+  const colorPalette = document.getElementsByClassName('color');
   for (let index = 0; index < colorPalette.length; index += 1) {
     colorPalette[index].addEventListener('click', setSelected);
   }
 }
 
 function setColor(color) {
+  const colorPalette = document.getElementsByClassName('color');
   if (colorPalette[0].classList.contains('selected')) {
     color.target.style.backgroundColor = 'rgb(0, 0, 0)';
   } else if (colorPalette[1].classList.contains('selected')) {
@@ -61,12 +76,15 @@ function setColor(color) {
 }
 
 function selectColor() {
+  const pixel = document.getElementsByClassName('pixel');
   for (let index = 0; index < pixel.length; index += 1) {
     pixel[index].addEventListener('click', setColor);
   }
 }
 
 function clearColorPalette() {
+  const clear = document.getElementById('clear-board');
+  const pixel = document.getElementsByClassName('pixel');
   clear.addEventListener('click', () => {
     for (let index = 0; index < pixel.length; index += 1) {
       pixel[index].style.backgroundColor = 'rgb(255, 255, 255)';
@@ -81,4 +99,5 @@ window.onload = () => {
   receiveClick();
   selectColor();
   clearColorPalette();
+  createInputEButton();
 };
