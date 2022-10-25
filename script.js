@@ -33,18 +33,17 @@ function createPixels() {
   }
 }
 
-function receiveClick(color) {
+function receiveClick() {
   for (let index = 0; index < colorPalette.length; index += 1) {
-    console.log('olá');
-    if (colorPalette[index].classList.contains('selected')) {
-      colorPalette[index].classList.toggle('selected');
-    }
+    colorPalette[index].addEventListener('click', (event) => {
+      for (let i = 0; i < colorPalette.length; i += 1) {
+        if (colorPalette[i].classList.contains('selected')) {
+          colorPalette[i].classList.toggle('selected');
+        }
+      }
+      event.target.classList.toggle('selected');
+    });
   }
-  color.target.classList.toggle('selected');
-}
-
-for (let index = 0; index < colorPalette.length; index += 1) {
-  colorPalette[index].addEventListener('click', receiveClick);
 }
 
 function selectColor(color) {
@@ -75,4 +74,5 @@ window.onload = () => {
   createTitle();
   createPaletteColor(colors);
   createPixels();
+  receiveClick();
 };
