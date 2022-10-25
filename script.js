@@ -33,20 +33,22 @@ function createPixels() {
   }
 }
 
+function setSelected(event) {
+  for (let i = 0; i < colorPalette.length; i += 1) {
+    if (colorPalette[i].classList.contains('selected')) {
+      colorPalette[i].classList.toggle('selected');
+    }
+  }
+  event.target.classList.toggle('selected');
+}
+
 function receiveClick() {
   for (let index = 0; index < colorPalette.length; index += 1) {
-    colorPalette[index].addEventListener('click', (event) => {
-      for (let i = 0; i < colorPalette.length; i += 1) {
-        if (colorPalette[i].classList.contains('selected')) {
-          colorPalette[i].classList.toggle('selected');
-        }
-      }
-      event.target.classList.toggle('selected');
-    });
+    colorPalette[index].addEventListener('click', setSelected);
   }
 }
 
-function selectColor(color) {
+function setColor(color) {
   if (colorPalette[0].classList.contains('selected')) {
     color.target.style.backgroundColor = 'rgb(0, 0, 0)';
   } else if (colorPalette[1].classList.contains('selected')) {
@@ -58,21 +60,25 @@ function selectColor(color) {
   }
 }
 
-for (let index = 0; index < pixel.length; index += 1) {
-  pixel[index].addEventListener('mouseover', selectColor);
-}
-
-function clearColorPalette() {
+function selectColor() {
   for (let index = 0; index < pixel.length; index += 1) {
-    pixel[index].style.backgroundColor = 'rgb(255, 255, 255)';
+    pixel[index].addEventListener('click', setColor);
   }
 }
 
-clear.addEventListener('click', clearColorPalette);
+function clearColorPalette() {
+  clear.addEventListener('click', () => {
+    for (let index = 0; index < pixel.length; index += 1) {
+      pixel[index].style.backgroundColor = 'rgb(255, 255, 255)';
+    }
+  });
+}
 
 window.onload = () => {
   createTitle();
   createPaletteColor(colors);
   createPixels();
   receiveClick();
+  selectColor();
+  clearColorPalette();
 };
