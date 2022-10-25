@@ -24,6 +24,15 @@ function createPaletteColor(arrColors) {
   firstElement.className = 'color selected';
 }
 
+function createPixels() {
+  const pixelsContainer = document.getElementById('pixel-board');
+  for (let index = 0; index < 25; index += 1) {
+    const pixell = document.createElement('div');
+    pixell.className = 'pixel';
+    pixelsContainer.appendChild(pixell);
+  }
+}
+
 function receiveClick(color) {
   for (let index = 0; index < colorPalette.length; index += 1) {
     console.log('olá');
@@ -65,4 +74,5 @@ clear.addEventListener('click', clearColorPalette);
 window.onload = () => {
   createTitle();
   createPaletteColor(colors);
+  createPixels();
 };
