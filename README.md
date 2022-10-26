@@ -49,11 +49,12 @@ O projeto foi realizado durante o curso da Trybe e os seguintes requisitos preci
   
   - [X]  9 _Crie um botão que, ao ser clicado, limpa o quadro preenchendo a cor de todos seus pixels com branco._
   ### Requisitos Bônus:
-    - [X] 10 _Faça o quadro de pixels ter seu tamanho definido pela pessoa usuária._
+
+  - [X] 10 _Faça o quadro de pixels ter seu tamanho definido pela pessoa usuária._
   
-    - [X] 11 _Limite o tamanho mínimo e máximo do board._
+  - [X] 11 _Limite o tamanho mínimo e máximo do board._
   
-    - [X] 12 _Faça com que as cores da paleta sejam geradas aleatoriamente ao carregar a página._
+  - [X] 12 _Faça com que as cores da paleta sejam geradas aleatoriamente ao carregar a página._
   
   
 
