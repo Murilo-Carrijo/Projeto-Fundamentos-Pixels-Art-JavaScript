@@ -1,4 +1,3 @@
-const colors = ['black', 'red', 'blue', 'green'];
 const pixelBoardId = 'pixel-board';
 let pixelSize = 5;
 
@@ -10,13 +9,27 @@ function createTitle() {
   header.appendChild(title);
 }
 
-function createPaletteColor(arrColors) {
+function randomNumberFunc() {
+  const randomNumber = Math.floor(Math.random() * 255);
+  return randomNumber;
+}
+
+function randomColors() {
+  const red = randomNumberFunc();
+  const green = randomNumberFunc();
+  const blue = randomNumberFunc();
+  const rgb = `rgb(${red}, ${green}, ${blue})`;
+  return rgb;
+}
+
+function createPaletteColor() {
   const colorsContainer = document.getElementById('color-palette');
-  for (let index = 0; index < arrColors.length; index += 1) {
+  for (let index = 0; index < 4; index += 1) {
     const buttonColor = document.createElement('button');
     buttonColor.type = 'button';
-    buttonColor.id = arrColors[index];
+    buttonColor.id = 'button-color';
     buttonColor.className = 'color';
+    buttonColor.style.backgroundColor = index === 0 ? 'black' : randomColors();
     colorsContainer.appendChild(buttonColor);
   }
   const firstElement = document.querySelector('.color');
@@ -32,9 +45,8 @@ function defineSizeOfPixelBoard(pixels) {
 
 function createPixels(area) {
   const pixelsContainer = document.getElementById(pixelBoardId);
-  defineSizeOfPixelBoard(area)
+  defineSizeOfPixelBoard(area);
   const qtdPixel = area ** 2;
-  console.log(qtdPixel);
   for (let index = 0; index < qtdPixel; index += 1) {
     const pixel = document.createElement('div');
     pixel.style.backgroundColor = 'white';
@@ -76,14 +88,12 @@ function receiveClick() {
 
 function setColor(color) {
   const colorPalette = document.getElementsByClassName('color');
-  if (colorPalette[0].classList.contains('selected')) {
-    color.target.style.backgroundColor = 'rgb(0, 0, 0)';
-  } else if (colorPalette[1].classList.contains('selected')) {
-    color.target.style.backgroundColor = 'rgb(212, 14, 14)';
-  } else if (colorPalette[2].classList.contains('selected')) {
-    color.target.style.backgroundColor = 'rgb(0, 110, 255)';
-  } else if (colorPalette[3].classList.contains('selected')) {
-    color.target.style.backgroundColor = 'rgb(5, 71, 5)';
+  for (let i = 0; i < colorPalette.length; i += 1) {
+    if (colorPalette[i].classList.contains('selected')) {
+      const bgColor = colorPalette[i].style.backgroundColor;
+      // eslint-disable-next-line no-param-reassign
+      color.target.style.backgroundColor = bgColor;
+    }
   }
 }
 
@@ -144,7 +154,7 @@ function setNewBoard() {
 
 window.onload = () => {
   createTitle();
-  createPaletteColor(colors);
+  createPaletteColor();
   createPixels(pixelSize);
   receiveClick();
   selectColor();
