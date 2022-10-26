@@ -1,4 +1,6 @@
 const colors = ['black', 'red', 'blue', 'green'];
+const pixelBoardId = 'pixel-board';
+let pixelSize = 5;
 
 function createTitle() {
   const header = document.querySelector('.header-container');
@@ -21,10 +23,21 @@ function createPaletteColor(arrColors) {
   firstElement.className = 'color selected';
 }
 
-function createPixels() {
-  const pixelsContainer = document.getElementById('pixel-board');
-  for (let index = 0; index < 25; index += 1) {
+function defineSizeOfPixelBoard(pixels) {
+  const tamanhoBoard = 40 * pixels;
+  const pixelsContainer = document.getElementById(pixelBoardId);
+  pixelsContainer.style.width = `${tamanhoBoard}px`;
+  pixelsContainer.style.height = `${tamanhoBoard}px`;
+}
+
+function createPixels(area) {
+  const pixelsContainer = document.getElementById(pixelBoardId);
+  defineSizeOfPixelBoard(area)
+  const qtdPixel = area ** 2;
+  console.log(qtdPixel);
+  for (let index = 0; index < qtdPixel; index += 1) {
     const pixel = document.createElement('div');
+    pixel.style.backgroundColor = 'white';
     pixel.className = 'pixel';
     pixelsContainer.appendChild(pixel);
   }
@@ -36,8 +49,7 @@ function createInputEButton() {
   input.placeholder = 'Digite o tamanho os pixels';
   input.id = 'board-size';
   input.type = 'number';
-  input.min = '0';
-  input.max = '50';
+  input.min = '1';
   const button = document.createElement('button');
   button.innerText = 'VQV';
   button.id = 'generate-board';
@@ -92,12 +104,51 @@ function clearColorPalette() {
   });
 }
 
+function newBoard() {
+  let boardChild = document.getElementById(pixelBoardId).lastElementChild;
+  while (boardChild) {
+    document.getElementById(pixelBoardId).removeChild(boardChild);
+    boardChild = document.getElementById(pixelBoardId).lastElementChild;
+  }
+  createPixels(pixelSize);
+  selectColor();
+  selectColor();
+}
+
+function emptInputValue() {
+  const input = document.getElementById('board-size');
+  if (input.value === '') {
+    window.alert('Board inválido!');
+  }
+  return input.value;
+}
+
+function checkInputValue() {
+  const inputValue = emptInputValue();
+  if (inputValue < 5) {
+    pixelSize = 5;
+  } else if (inputValue > 50) {
+    pixelSize = 50;
+  } else {
+    pixelSize = inputValue;
+  }
+}
+
+function setNewBoard() {
+  const button = document.getElementById('generate-board');
+  button.addEventListener('click', () => {
+    checkInputValue();
+    newBoard();
+  });
+}
+
 window.onload = () => {
   createTitle();
   createPaletteColor(colors);
-  createPixels();
+  createPixels(pixelSize);
   receiveClick();
   selectColor();
   clearColorPalette();
   createInputEButton();
+  setNewBoard();
 };
