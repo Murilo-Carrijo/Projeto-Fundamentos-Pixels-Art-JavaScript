@@ -55,6 +55,7 @@ O projeto foi realizado durante o curso da Trybe e os seguintes requisitos preci
   
   12 - [X] _Faça com que as cores da paleta sejam geradas aleatoriamente ao carregar a página._
   
+  - [X] 2-1: _O que é e para que serve?_
   
 
 ---
